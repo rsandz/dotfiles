@@ -17,6 +17,11 @@ call plug#begin()
 
 " Important plugins
 Plug 'tpope/vim-surround'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'tpope/vim-repeat'
+
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-user'
 
 " Non VSCode plugins
 if !has("g:vscode")

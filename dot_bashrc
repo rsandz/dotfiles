@@ -136,10 +136,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Add to paths
+# Environment Vars
 export PATH="${PATH}:/home/ryan/cmake-3.22.0-rc2-linux-x86_64/bin"
 
-# Aliases
+# Editor Configuration
 if [[ -f /usr/bin/nvim ]]; then 
 	alias vim=nvim
+	export EDITOR="nvim"
+else
+	export EDITOR="vim"
 fi
