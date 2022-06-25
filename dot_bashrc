@@ -138,3 +138,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # Add to paths
 export PATH="${PATH}:/home/ryan/cmake-3.22.0-rc2-linux-x86_64/bin"
+
+# Aliases
+if [[ -f /usr/bin/nvim ]]; then 
+	alias vim=nvim
+fi
