@@ -14,11 +14,30 @@ else
 endif
 
 call plug#begin()
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-fugitive'
+
+" Important plugins
 Plug 'tpope/vim-surround'
-Plug 'majutsushi/tagbar'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'airblade/vim-gitgutter'
+
+" Non VSCode plugins
+if !has("g:vscode")
+	Plug 'vim-airline/vim-airline'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-surround'
+	Plug 'majutsushi/tagbar'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'scrooloose/nerdcommenter'
+	Plug 'airblade/vim-gitgutter'
+endif
 call plug#end()
+
+" Mappings
+" =======
+
+if exists("g:vscode")
+	xmap gc  <Plug>VSCodeCommentary
+	nmap gc  <Plug>VSCodeCommentary
+	omap gc  <Plug>VSCodeCommentary
+	nmap gcc <Plug>VSCodeCommentaryLine
+endif
+
+
