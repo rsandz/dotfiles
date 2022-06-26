@@ -16,13 +16,15 @@ endif
 call plug#begin()
 
 " Important plugins
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'ggandor/lightspeed.nvim'
-Plug 'wellle/targets.vim'
 
+" Text Objects
+Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
 
 " Non VSCode plugins
