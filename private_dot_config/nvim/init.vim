@@ -22,7 +22,11 @@ Plug 'ggandor/lightspeed.nvim'
 
 " Text Objects
 Plug 'tpope/vim-surround'
-Plug 'wellle/targets.vim'
+Plug 'thinca/vim-textobj-between'
+Plug 'sgur/vim-textobj-parameter'
+" Change from ' to a
+let g:vim_textobj_parameter_mapping = 'a'
+
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
