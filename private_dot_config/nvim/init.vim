@@ -17,8 +17,9 @@ call plug#begin()
 
 " Important plugins
 Plug 'tpope/vim-surround'
-Plug 'ggandor/lightspeed.nvim'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
+Plug 'ggandor/lightspeed.nvim'
 Plug 'wellle/targets.vim'
 
 Plug 'kana/vim-textobj-entire'
@@ -28,8 +29,6 @@ Plug 'kana/vim-textobj-user'
 if !has("g:vscode")
 	Plug 'vim-airline/vim-airline'
 	Plug 'tpope/vim-fugitive'
-	Plug 'tpope/vim-surround'
-	Plug 'majutsushi/tagbar'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'airblade/vim-gitgutter'
