@@ -19,6 +19,7 @@ call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'tpope/vim-repeat'
+Plug 'wellle/targets.vim'
 
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
