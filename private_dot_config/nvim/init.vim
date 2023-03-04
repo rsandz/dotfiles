@@ -15,10 +15,11 @@ endif
 
 call plug#begin()
 
-" Important plugins
+" Plugin Definition
+" =================
+
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
-Plug 'ggandor/lightspeed.nvim'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 " Text Objects
@@ -31,8 +32,9 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
 
-" Non VSCode plugins
+" Env Specific Plugins
 if !has("g:vscode")
+        " NVIM or VIM
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         let g:airline_theme='bubblegum'
@@ -40,9 +42,26 @@ if !has("g:vscode")
 
         Plug 'tpope/vim-fugitive'
         Plug 'scrooloose/nerdcommenter'
+        nmap <Leader>cc <Plug>NERDCommenterToggle
+        nmap <Leader>c<Leader> <Plug>NERDCommenterToggle
+
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
+
+        if has('nvim')
+                Plug 'ggandor/lightspeed.nvim'
+        else
+                Plug 'easymotion/vim-easymotion'
+                let g:EasyMotion_do_mapping = 0
+                let g:EasyMotion_smartcase = 1
+
+                " Jump anywhere with 2 chars
+                nmap s <Plug>(easymotion-overwin-f2)
+                vmap z <Plug>(easymotion-bd-f2)
+        endif
 endif
+
+
 call plug#end()
 
 
