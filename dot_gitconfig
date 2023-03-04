@@ -1,0 +1,10 @@
+[core]
+	editor = vim
+[alias]
+        s = status
+        d = diff
+        ds = diff --staged
+        a = add
+        l = log --graph --decorate
+
+
