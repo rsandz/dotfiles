@@ -1,3 +1,6 @@
+" Configuration variables
+let USE_LIGHT_SPEED_IN_NVIM = 1
+
 " Auto install vim plug
 if has('nvim')
         if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -48,7 +51,7 @@ if !has("g:vscode")
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
 
-        if has('nvim')
+        if has('nvim') && USE_LIGHT_SPEED_IN_NVIM
                 Plug 'ggandor/lightspeed.nvim'
         else
                 Plug 'easymotion/vim-easymotion'
