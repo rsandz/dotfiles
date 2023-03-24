@@ -6,8 +6,12 @@ It uses [chezmoi](https://www.chezmoi.io/) to manage the dotfiles.
 ## Usage
 
 Follow instructions in the chezmoi docs.
-Or apply immediately with:
 
+Or apply immediately with:
 ```
 sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply $GITHUB_USERNAME
 ```
+
+Note:
+- Add -n to dry-run first.
+- Use chezmoi `diff` to check diference between target and destination state.
