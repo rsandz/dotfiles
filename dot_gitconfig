@@ -5,7 +5,7 @@
         d = diff
         ds = diff --staged
         a = add
-        ll = log --graph --decorate
-        l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        ll = log --graph --pretty=format:'%Cred%h%Creset  -%C(auto)%d%Creset %s %Cgreen(%ch, %cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit
+        l = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
 
