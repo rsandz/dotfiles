@@ -15,3 +15,11 @@ sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply $GITHUB_USERNAME
 Note:
 - Add -n to dry-run first.
 - Use chezmoi `diff` to check diference between target and destination state.
+
+## Additional Configs
+
+To switch to `fish` as the main shell, use:
+
+```
+chsh -s /usr/bin/fish
+```
