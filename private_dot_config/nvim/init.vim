@@ -76,7 +76,10 @@ set wrap
 
 " Spacing
 " =======
-set expandtab
+set expandtab " Turn tab to spaces
+set tabstop=4 " Number of spaces a \t counts for
+set softtabstop=-1 " Number of spaces added when pressing TAB. Use shiftwidth if -1.
+set shiftwidth=4 " Number of spaces for indentation operations
 
 " Search
 " ======
