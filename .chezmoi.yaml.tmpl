@@ -1,0 +1,17 @@
+{{- $email := "" }}
+{{- if stdinIsATTY }}
+{{-     $email = promptString "email" }}
+{{- end }}
+
+{{- $isWorkComputer := false }}
+{{- if stdinIsATTY }}
+{{-     $isWorkComputer = promptBool "Work Computer" }}
+{{- end }}
+
+{{- if stdinIsATTY }}
+{{-     writeToStdout "💡 Tip: Run `chezmoi init --data=false` to re-enter data\n" }}
+{{- end }}
+
+data:
+    email: {{ $email }}
+    isWorkComputer: {{ $isWorkComputer }}
