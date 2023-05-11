@@ -1,6 +1,6 @@
-#!/usr/bin/fisher
+#!/opt/homebrew/bin/fish
 
-if type -q fisher
+if not type -q fisher
     # Install Fisher
     echo "Installing fisher."
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
