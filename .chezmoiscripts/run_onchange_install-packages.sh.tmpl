@@ -1,9 +1,15 @@
 #!/bin/sh
-{{ if eq .chezmoi.os "linux" }}
-    sudo apt install fzf
+{{- if .isWorkComputer }}
+    exit 0
+{{- end }}
 
-    # Install Fish
-    sudo apt-add-repository ppa:fish-shell/release-3
-    sudo apt update
-    sudo apt install fish
-{{ end -}}
+{{- if eq .chezmoi.os "linux" }}
+set -x
+sudo apt install fzf
+
+# Install Fish
+yes | sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install fish
+
+{{- end -}}
