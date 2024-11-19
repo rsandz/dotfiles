@@ -12,4 +12,10 @@ yes | sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update
 sudo apt install fish
 
+# Install Zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+# Install Mise: https://mise.jdx.dev/cli/use.html
+curl https://mise.run | sh
+
 {{- end -}}
