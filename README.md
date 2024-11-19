@@ -23,3 +23,9 @@ To switch to `fish` as the main shell, use:
 ```
 chsh -s /usr/bin/fish
 ```
+
+## Dependencies
+
+- bat : https://github.com/sharkdp/bat
+- ripgrep (rg): https://github.com/BurntSushi/ripgrep
+

@@ -51,6 +51,11 @@ if !has("g:vscode")
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
 
+        " FZF Key Bindings
+        nmap <C-p> :Files<CR>
+        nmap <Leader><C-P> :RG!<CR>
+
+
         if has('nvim') && USE_LIGHT_SPEED_IN_NVIM
                 Plug 'ggandor/lightspeed.nvim'
         else

@@ -15,6 +15,9 @@ set incsearch
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
+let mapleader=" "
+
+
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 
 " Highlight copied text
@@ -28,6 +31,8 @@ Plug 'vim-scripts/argtextobj.vim'
 Plug 'kana/vim-textobj-entire'
 Plug 'michaeljsmith/vim-indent-object'
 
+map s <Plug>(easymotion-s)
+nmap <Leader>b <Action>(Annotate)
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
