@@ -11,6 +11,7 @@ set scrolloff=5
 
 " Do incremental searching.
 set incsearch
+set ignorecase smartcase
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -31,15 +32,32 @@ Plug 'vim-scripts/argtextobj.vim'
 Plug 'kana/vim-textobj-entire'
 Plug 'michaeljsmith/vim-indent-object'
 
-map s <Plug>(easymotion-s)
+Plug 'junegunn/vim-peekaboo'
+set peekaboo
+
+Plug 'terryma/vim-multiple-cursors'
+Plug 'vim-matchit'
+Plug 'dbakker/vim-paragraph-motion'
+
+
+nmap s <Plug>(easymotion-bd-f2)
 nmap <Leader>b <Action>(Annotate)
+nmap gn :action GotoNextError<CR>
+nmap gp :action GotoPreviousError<CR>
 
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
 
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Feel free to pick your own mappings that are not affected. I like to use <leader>
+nmap <leader><C-n> <Plug>AllWholeOccurrences
+xmap <leader><C-n> <Plug>AllWholeOccurrences
+nmap <leader>g<C-n> <Plug>AllOccurrences
+xmap <leader>g<C-n> <Plug>AllOccurrences
 
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
