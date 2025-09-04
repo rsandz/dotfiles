@@ -23,6 +23,7 @@ call plug#begin()
 
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
+Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 " Text Objects
