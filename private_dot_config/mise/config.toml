@@ -1,0 +1,7 @@
+[tools]
+fzf = "latest"
+jq = "latest"
+ripgrep = "latest"
+zoxide = "latest"
+btop = "latest"
+eza = "latest"

@@ -15,3 +15,7 @@ if type -q mise
     mise activate fish | source
 end
 
+# eza - ls alternative - https://github.com/eza-community/eza
+if type -q eza
+    alias ls=eza
+end

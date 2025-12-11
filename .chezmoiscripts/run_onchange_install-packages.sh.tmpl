@@ -5,17 +5,15 @@
 
 {{- if eq .chezmoi.os "linux" }}
 set -x
-sudo apt install fzf
 
 # Install Fish
 yes | sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update
 sudo apt install fish
 
-# Install Zoxide
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-
 # Install Mise: https://mise.jdx.dev/cli/use.html
+# Dev tool installer and tool version manager like nvm, etc.
 curl https://mise.run | sh
+mise install
 
 {{- end -}}
