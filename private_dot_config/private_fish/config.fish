@@ -15,7 +15,18 @@ if type -q mise
     mise activate fish | source
 end
 
-# eza - ls alternative - https://github.com/eza-community/eza
 if type -q eza
     alias ls=eza
 end
+
+if type -q kubectl
+    alias k=kubectl
+end
+
+if type -q cursor-agent
+    alias ca=cursor-agent
+end
+
+# Personal tools
+alias srg=super_grep
+
