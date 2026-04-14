@@ -1,5 +1,5 @@
 " Configuration variables
-let USE_LIGHT_SPEED_IN_NVIM = 1
+let USE_LEAP_IN_NVIM = 1
 
 " Auto install vim plug
 if has('nvim')
@@ -21,8 +21,13 @@ call plug#begin()
 " Plugin Definition
 " =================
 
+if !has('nvim')
+        Plug 'tpope/vim-sensible'
+endif
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'wellle/targets.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/ReplaceWithRegister'
 
@@ -36,11 +41,10 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
 
-Plug 'xuyuanp/nerdtree-git-plugin'
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 
 " Env Specific Plugins
-if !has("g:vscode")
+if !exists("g:vscode") && !exists("g:cursor")
         " NVIM or VIM
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
@@ -60,8 +64,8 @@ if !has("g:vscode")
         nmap <Leader><C-P> :RG!<CR>
 
 
-        if has('nvim') && USE_LIGHT_SPEED_IN_NVIM
-                Plug 'ggandor/lightspeed.nvim'
+        if has('nvim') && USE_LEAP_IN_NVIM
+                Plug 'ggandor/leap.nvim'
         else
                 Plug 'easymotion/vim-easymotion'
                 let g:EasyMotion_do_mapping = 0
@@ -91,13 +95,9 @@ if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
 endif
 
 "Enable theme
-autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
-let g:gruvbox_contrast_dark = 'hard'
-
-" NERDTree Configs
-" ================
-map <C-n> :NERDTreeToggle<CR>
+let g:gruvbox_material_background = 'hard'
+autocmd vimenter * ++nested colorscheme gruvbox-material
 
 " VIM configs
 " ===========
@@ -124,7 +124,7 @@ set smartcase
 
 let mapleader = " "
 
-if exists("g:vscode")
+if exists("g:vscode") || exists("g:cursor")
         xmap gc  <Plug>VSCodeCommentary
         nmap gc  <Plug>VSCodeCommentary
         omap gc  <Plug>VSCodeCommentary
