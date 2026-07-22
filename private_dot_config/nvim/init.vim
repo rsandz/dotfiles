@@ -29,6 +29,9 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'wellle/targets.vim'
 Plug 'andymass/vim-matchup'
+" Defer bracket-match highlighting until idle instead of on every cursor move
+" - avoids stalls on large files
+let g:matchup_matchparen_deferred = 1
 Plug 'vim-scripts/ReplaceWithRegister'
 
 " Text Objects
@@ -52,6 +55,9 @@ if !exists("g:vscode") && !exists("g:cursor")
         let g:airline#extensions#tabline#enabled = 1
 
         Plug 'tpope/vim-fugitive'
+        Plug 'preservim/nerdtree'
+        nmap <C-n> :NERDTreeToggle<CR>
+
         Plug 'scrooloose/nerdcommenter'
         nmap <Leader>cc <Plug>NERDCommenterToggle
         nmap <Leader>c<Leader> <Plug>NERDCommenterToggle
@@ -62,6 +68,32 @@ if !exists("g:vscode") && !exists("g:cursor")
         " FZF Key Bindings
         nmap <C-p> :Files<CR>
         nmap <Leader><C-P> :RG!<CR>
+        nmap <Leader>b :Buffers<CR>
+
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+        if has('nvim')
+                " Real parser-based highlighting - replaces regex :syntax for
+                " covered filetypes, no catastrophic backtracking on nested
+                " generics like the connectionMutations.ts freeze.
+                Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        endif
+
+        Plug 'liuchengxu/vim-which-key'
+
+        Plug 'airblade/vim-rooter'
+
+        Plug 'liuchengxu/vista.vim'
+        let g:vista_default_executive = 'coc'
+        nmap <Leader>v :Vista!!<CR>
+
+        Plug 'ludovicchabant/vim-gutentags'
+        let g:gutentags_cache_dir = expand('~/.cache/tags')
+        " /usr/bin/ctags (macOS BSD ctags) precedes /opt/homebrew/bin on
+        " PATH and doesn't support gutentags' flags (-R, --tag-relative,
+        " etc). Point at Universal Ctags explicitly instead of reordering
+        " PATH globally.
+        let g:gutentags_ctags_executable = '/opt/homebrew/bin/ctags'
 
 
         if has('nvim') && USE_LEAP_IN_NVIM
@@ -79,6 +111,25 @@ endif
 
 
 call plug#end()
+
+if has('nvim')
+lua <<EOF
+-- nvim-treesitter's `main` branch dropped the old configs.setup() API;
+-- install parsers and drive highlighting through Neovim's native
+-- vim.treesitter.start(), per the plugin's current README.
+require('nvim-treesitter').install({ 'typescript', 'tsx', 'javascript', 'json' })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'typescript', 'typescriptreact', 'javascript', 'json' },
+  callback = function()
+    -- Clear regex :syntax first - it still catastrophically backtracks on
+    -- nested generics even if treesitter is also highlighting the buffer.
+    vim.cmd('syntax clear')
+    vim.treesitter.start()
+  end,
+})
+EOF
+endif
 
 " THEME SETUP
 if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
@@ -105,6 +156,14 @@ filetype indent plugin on
 set nu
 set wrap
 
+" Perf: force the old regex engine - Vim's NFA engine catastrophically
+" backtracks on vim-polyglot's TS/TSX syntax (generics, template literals),
+" the classic cause of freezes on large TS files. Also give syntax matching
+" more time before Vim gives up mid-redraw instead of hanging.
+set regexpengine=1
+set redrawtime=10000
+
+
 " Spacing
 " =======
 set expandtab " Turn tab to spaces
@@ -124,11 +183,51 @@ set smartcase
 
 let mapleader = " "
 
+" vim-which-key: show a popup of mappings under the current prefix
+set timeoutlen=500
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
 if exists("g:vscode") || exists("g:cursor")
         xmap gc  <Plug>VSCodeCommentary
         nmap gc  <Plug>VSCodeCommentary
         omap gc  <Plug>VSCodeCommentary
         nmap gcc <Plug>VSCodeCommentaryLine
+else
+        " Coc.nvim
+        " ========
+        function! CheckBackspace() abort
+                let col = col('.') - 1
+                return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
+
+        " Tab: if completion popup is open, select next entry; else if cursor is
+        " mid-word insert a real tab; else trigger completion
+        inoremap <silent><expr> <TAB>
+                                \ coc#pum#visible() ? coc#pum#next(1) :
+                                \ CheckBackspace() ? "\<Tab>" :
+                                \ coc#refresh()
+        " Shift-Tab: if popup open, select previous entry; else normal backspace
+        inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+        " Enter: if popup open, confirm the selected completion; else normal newline
+        inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>"
+
+        nmap <silent> gd <Plug>(coc-definition)      " jump to where symbol under cursor is defined
+        nmap <silent> gy <Plug>(coc-type-definition)  " jump to the definition of the symbol's type
+        nmap <silent> gi <Plug>(coc-implementation)   " jump to concrete implementation(s) of an interface/abstract method
+        nmap <silent> <leader>r <Plug>(coc-references)      " list all usages of symbol under cursor
+        nnoremap <silent> K :call CocActionAsync('doHover')<CR>  " show docs/type info for symbol under cursor
+
+        nmap <silent> rn <Plug>(coc-rename)  " rename symbol under cursor across the project
+
+        nmap <leader>a  <Plug>(coc-codeaction-cursor)   " show quick-fix/refactor actions for the current line
+        nmap <leader>ac <Plug>(coc-codeaction-source)   " show file-wide actions (e.g. organize imports)
+        xmap <leader>a  <Plug>(coc-codeaction-selected) " show actions scoped to the visual selection
+
+        nmap <silent> [g <Plug>(coc-diagnostic-prev)  " jump to previous error/warning
+        nmap <silent> ]g <Plug>(coc-diagnostic-next)  " jump to next error/warning
+
+        xmap <leader>f <Plug>(coc-format-selected)  " format the visual selection
+        nmap <leader>f <Plug>(coc-format-selected)  " format under an operator (e.g. <leader>fip)
 endif
 
 
